@@ -1,0 +1,17 @@
+IMAGE_URLS = [
+    "https://pbs.twimg.com/profile_images/1544722618275827713/9-aMN_Wb_400x400.jpg",
+    "https://www.vhv.rs/dpng/d/545-5454169_pixilart-earth-anonymous-png-mlg-earth-400-400.png",
+    "https://www.vhv.rs/dpng/d/545-5454169_pixilart-earth-anonymous-png-mlg-earth-400-400.png",
+    "https://pbs.twimg.com/profile_images/1544722618275827713/9-aMN_Wb_400x400.jpg",
+    "https://pbs.twimg.com/profile_images/1544722618275827713/9-aMN_Wb_400x400.jpg",
+    "https://pbs.twimg.com/profile_images/1544722618275827713/9-aMN_Wb_400x400.jpg",
+    "https://pbs.twimg.com/profile_images/1544722618275827713/9-aMN_Wb_400x400.jpg",
+    "https://pbs.twimg.com/profile_images/1544722618275827713/9-aMN_Wb_400x400.jpg",
+    "https://pbs.twimg.com/profile_images/1544722618275827713/9-aMN_Wb_400x400.jpg",
+    "https://pbs.twimg.com/profile_images/1544722618275827713/9-aMN_Wb_400x400.jpg",
+    "https://www.vhv.rs/dpng/d/545-5454169_pixilart-earth-anonymous-png-mlg-earth-400-400.png",
+    "https://www.vhv.rs/dpng/d/545-5454169_pixilart-earth-anonymous-png-mlg-earth-400-400.png",
+    "https://www.vhv.rs/dpng/d/545-5454169_pixilart-earth-anonymous-png-mlg-earth-400-400.png",
+    "https://www.vhv.rs/dpng/d/545-5454169_pixilart-earth-anonymous-png-mlg-earth-400-400.png",
+    "https://pbs.twimg.com/profile_images/1544722618275827713/9-aMN_Wb_400x400.jpg",
+]
