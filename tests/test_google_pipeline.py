@@ -2,7 +2,6 @@ import uuid
 from typing import List
 
 import pandas as pd
-from google.oauth2 import service_account
 from sqlalchemy import Column
 from sqlalchemy.sql.sqltypes import JSON, String
 
@@ -30,8 +29,7 @@ def image_classification_google(
     details_field: str,
     image_field: str,
 ) -> pd.DataFrame:
-    google_credentials = service_account.Credentials.from_service_account_file(CREDENTIALS_PATH)
-    image_moderation_google_service = ImageModerationGoogle(google_credentials=google_credentials)
+    image_moderation_google_service = ImageModerationGoogle(google_credentials_path=CREDENTIALS_PATH)
 
     output_df = input_df[input_primary_keys].copy()
     output_df[details_field] = image_moderation_google_service.moderate_batch(images=input_df[image_field].tolist())
