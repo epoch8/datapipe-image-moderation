@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from google.cloud import vision
 from google.oauth2 import service_account
@@ -11,8 +11,12 @@ class ImageModerationGoogle:
     Класс клиента модерации изображений в Google Cloud Vision gRPC.
     """
 
-    def __init__(self, google_credentials: service_account.Credentials) -> None:
-        self._google_vision_client = vision.ImageAnnotatorClient(credentials=google_credentials)
+    def __init__(self, google_credentials_path: Optional[str] = None) -> None:
+        if google_credentials_path is None:
+            self._google_vision_client = vision.ImageAnnotatorClient()
+        else:
+            google_credentials = service_account.Credentials.from_service_account_file(google_credentials_path)
+            self._google_vision_client = vision.ImageAnnotatorClient(credentials=google_credentials)
 
     def moderate_batch(self, images: List[str]) -> List:
         """

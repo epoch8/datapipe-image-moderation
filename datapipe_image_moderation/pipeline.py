@@ -3,7 +3,6 @@ from typing import List, Optional, Union
 
 import pandas as pd
 import sqlalchemy as sa
-from google.oauth2 import service_account
 
 from datapipe.compute import Catalog, ComputeStep, DataStore, ExecutorConfig, Labels, PipelineStep, Table
 from datapipe.core_steps import BatchTransformStep
@@ -83,7 +82,7 @@ class GoogleImageClassificationStep(PipelineStep):
     output: str  # Output Table name.
     dbconn: Union[DBConn, str]  # Database Connection.
 
-    credentials_path: str  # Folder ID with access in Yandex Cloud.
+    credentials_path: Optional[str] = None  # Folder ID with access in Yandex Cloud.
     image_field: str = "image_url"  # Name of Field with Image URL or Image Bytes.
     details_field: str = "details"  # Name of Field for write classification result.
     step_name: str = "image_classification_google"  # Name of Step.
@@ -107,8 +106,7 @@ class GoogleImageClassificationStep(PipelineStep):
         catalog.add_datatable(self.output, Table(output_dt.table_store))
 
         def image_classification_google(input_df: pd.DataFrame) -> pd.DataFrame:
-            google_credentials = service_account.Credentials.from_service_account_file(self.credentials_path)
-            image_moderation_google_service = ImageModerationGoogle(google_credentials=google_credentials)
+            image_moderation_google_service = ImageModerationGoogle(google_credentials_path=self.credentials_path)
 
             output_df = input_df[input_dt.primary_keys].copy()
             output_df[self.details_field] = image_moderation_google_service.moderate_batch(
