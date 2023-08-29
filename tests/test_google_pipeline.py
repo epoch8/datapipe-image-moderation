@@ -32,7 +32,11 @@ def image_classification_google(
     image_moderation_google_service = ImageModerationGoogle(google_credentials_path=CREDENTIALS_PATH)
 
     output_df = input_df[input_primary_keys].copy()
-    output_df[details_field] = image_moderation_google_service.moderate_batch(images=input_df[image_field].tolist())
+    output_df[details_field] = image_moderation_google_service.moderate_batch(
+        images=input_df[image_field].tolist(),
+        file_system_name="gcs",
+        file_system_creds_path=CREDENTIALS_PATH,
+    )
     return output_df
 
 
@@ -69,6 +73,8 @@ def test_google_step_with_urls(dbconn) -> None:
         image_field="image_url",
         details_field="details",
         step_name="test_image_classification_google_by_url",
+        file_system_name="gcs",
+        file_system_creds_path=CREDENTIALS_PATH,
     )
 
     pipeline = Pipeline([google_step])

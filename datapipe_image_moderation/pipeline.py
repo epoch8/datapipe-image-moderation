@@ -24,6 +24,9 @@ class YandexImageClassificationStep(PipelineStep):
     folder_id: str  # Folder ID with access in Yandex Cloud.
     yandex_oauth_token: str  # Yandex Passport OAuth Token of user account.
 
+    file_system_name: str  # File system for Fsspec.
+    file_system_creds_path: Optional[str] = None  # File System Credentials File Path (Optional).
+
     image_field: str = "image_url"  # Name of Field with Image URL or Image Bytes.
     details_field: str = "details"  # Name of Field for write classification result.
     step_name: str = "image_classification_yandex"  # Name of Step.
@@ -55,6 +58,8 @@ class YandexImageClassificationStep(PipelineStep):
             output_df = input_df[input_dt.primary_keys].copy()
             output_df[self.details_field] = image_moderation_yandex_service.moderate_batch(
                 images=input_df[self.image_field].tolist(),
+                file_system_name=self.file_system_name,
+                file_system_creds_path=self.file_system_creds_path,
             )
             return output_df
 
@@ -82,7 +87,10 @@ class GoogleImageClassificationStep(PipelineStep):
     output: str  # Output Table name.
     dbconn: Union[DBConn, str]  # Database Connection.
 
-    credentials_path: Optional[str] = None  # Folder ID with access in Yandex Cloud.
+    file_system_name: str  # File system for Fsspec.
+    file_system_creds_path: Optional[str] = None  # File System Credentials File Path (Optional).
+
+    credentials_path: Optional[str] = None  # Credentials File Path for Google Vision API (Optional).
     image_field: str = "image_url"  # Name of Field with Image URL or Image Bytes.
     details_field: str = "details"  # Name of Field for write classification result.
     step_name: str = "image_classification_google"  # Name of Step.
@@ -111,6 +119,8 @@ class GoogleImageClassificationStep(PipelineStep):
             output_df = input_df[input_dt.primary_keys].copy()
             output_df[self.details_field] = image_moderation_google_service.moderate_batch(
                 images=input_df[self.image_field].tolist(),
+                file_system_name=self.file_system_name,
+                file_system_creds_path=self.file_system_creds_path,
             )
             return output_df
 
