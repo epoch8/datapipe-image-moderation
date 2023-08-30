@@ -15,6 +15,7 @@ from tests.utils import assert_datatable_equal
 
 FOLDER_ID = ""
 YANDEX_OAUTH_TOKEN = ""
+CREDENTIALS_PATH = "tests/test_google_creds.json"
 
 TEST_IMAGE_URLS_INPUT = pd.DataFrame(
     {
@@ -33,7 +34,11 @@ def image_classification_yandex(
     image_moderation_yandex_service = ImageModerationYandex(folder_id=FOLDER_ID, oauth_token=YANDEX_OAUTH_TOKEN)
 
     output_df = input_df[input_primary_keys].copy()
-    output_df[details_field] = image_moderation_yandex_service.moderate_batch(images=input_df[image_field].tolist())
+    output_df[details_field] = image_moderation_yandex_service.moderate_batch(
+        images=input_df[image_field].tolist(),
+        file_system_name="gcs",
+        file_system_creds_path=CREDENTIALS_PATH,
+    )
     return output_df
 
 
@@ -71,6 +76,8 @@ def test_yandex_step_with_urls(dbconn) -> None:
         image_field="image_url",
         details_field="details",
         step_name="test_image_classification_yandex_by_url",
+        file_system_name="gcs",
+        file_system_creds_path=CREDENTIALS_PATH,
     )
 
     pipeline = Pipeline([yandex_step])

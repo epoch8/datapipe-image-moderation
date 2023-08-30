@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import yandexcloud
 from yandex.cloud.ai.vision.v1.vision_service_pb2 import (
@@ -9,7 +9,7 @@ from yandex.cloud.ai.vision.v1.vision_service_pb2 import (
 )
 from yandex.cloud.ai.vision.v1.vision_service_pb2_grpc import VisionServiceStub
 
-from datapipe_image_moderation.utils import get_bytes_image
+from datapipe_image_moderation.utils import get_bytes_images
 
 
 class ImageModerationYandex:
@@ -54,11 +54,18 @@ class ImageModerationYandex:
 
         return analyze_specs
 
-    def moderate_batch(self, images: List[str]) -> List:
+    def moderate_batch(
+        self,
+        images: List[str],
+        file_system_name: str,
+        file_system_creds_path: Optional[str] = None,
+    ) -> List:
         """
         Метод массовой модерации изображений с помощью Yandex Cloud Vision gRPC.
 
         :param images: список изображений в виде URL или Bytes.
+        :param file_system_name: файловая система, где находится изображение.
+        :param file_system_creds_path: путь к credentials для файловой системы (опционально).
         :return: результат модерации.
         """
 
@@ -67,7 +74,11 @@ class ImageModerationYandex:
             raise ValueError("Количество изображений должно быть меньше или равно 5!")
 
         # Получаем список изображений в формате base64.
-        bytes_images = [get_bytes_image(image_url=image) for image in images]
+        bytes_images = get_bytes_images(
+            image_url_list=images,
+            file_system_name=file_system_name,
+            file_system_creds_path=file_system_creds_path,
+        )
 
         # Формируем запрос для Yandex Cloud Vision gRPC.
         request = BatchAnalyzeRequest(
