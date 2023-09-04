@@ -5,7 +5,7 @@ import pandas as pd
 import sqlalchemy as sa
 
 from datapipe.compute import Catalog, ComputeStep, DataStore, ExecutorConfig, Labels, PipelineStep, Table
-from datapipe.core_steps import BatchTransformStep
+from datapipe.step.batch_transform import BatchTransformStep
 from datapipe.store.database import DBConn, TableStoreDB
 from datapipe_image_moderation.google_vision import ImageModerationGoogle
 from datapipe_image_moderation.yandex_vision import ImageModerationYandex
