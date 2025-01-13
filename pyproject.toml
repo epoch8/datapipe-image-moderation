@@ -7,12 +7,12 @@ authors = ["Sultan Zakariya <sultan@epoch8.co>"]
 exclude = ["tests"]
 
 [tool.poetry.dependencies]
-python = ">=3.8, <3.12"
+python = ">=3.9, <3.12"
 requests = "^2.31.0"
 google-cloud-vision = "^3.4.4"
 yandexcloud = "^0.224.0"
 datapipe-core = {version=">=0.13.0, <0.14"}
-pandas = "^1.2.0"
+pandas = ">=2.2.0"
 numpy = "^1.21.0"
 fsspec = "^2023.4.0"
 gcsfs = "^2023.4.0"
