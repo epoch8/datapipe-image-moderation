@@ -14,8 +14,8 @@ yandexcloud = "^0.322.0"
 datapipe-core = {version=">=0.14.0, <0.15"}
 pandas = ">=2.2.0"
 numpy = "^1.21.0"
-fsspec = "^2025.3.0"
-gcsfs = "^2025.3.0"
+fsspec = ">=2023.12.2"
+gcsfs = ">=2023.12.2.post1"
 psycopg2-binary = "2.9.9"
 
 [tool.poetry.group.dev.dependencies]
